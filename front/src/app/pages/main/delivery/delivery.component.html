@@ -1,0 +1,50 @@
+<app-main>
+  <div class="flex flex-col">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div
+        class="md:flex md:items-center md:justify-between sm:px-6 lg:px-8 py-4"
+      >
+        <div class="flex-1 min-w-0">
+          <h2 class="text-2xl leading-7 text-gray-900 font-semibold">
+            Delivery
+          </h2>
+          <p class="text-sm font-medium text-gray-500">Delivery information</p>
+        </div>
+      </div>
+
+      <div class="container mx-auto py-8 md:py-12 px-0">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div
+            class="rounded-lg border bg-white text-card-foreground shadow-sm"
+            data-v0-t="card"
+            *ngFor="let delivery of itemsToDeliver"
+          >
+            <div class="p-6 grid gap-2">
+              <div class="flex items-center justify-between">
+                <h3 class="font-medium">{{ delivery.name }}</h3>
+                <div
+                  class="inline-flex w-fit items-center whitespace-nowrap rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-{{
+                    delivery.color
+                  }}-100 text-{{ delivery.color }}-600 dark:bg-{{
+                    delivery.color
+                  }}-900 dark:text-{{ delivery.color }}-200"
+                >
+                  {{ delivery.status }}
+                </div>
+              </div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">
+                <p>From: {{ delivery.from }}</p>
+                <p>To: {{ delivery.to }}</p>
+              </div>
+              <button
+                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 w-full"
+              >
+                Start Delivery
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-main>

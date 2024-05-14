@@ -1,0 +1,285 @@
+<app-main>
+  
+  <div class="flex flex-col">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div
+        class="md:flex md:items-center md:justify-between sm:px-6 lg:px-8 py-4"
+      >
+        <div class="flex-1 min-w-0">
+          <h2 class="text-2xl leading-7 text-gray-900 font-semibold">My Items</h2>
+          <p class="text-sm font-medium text-gray-500">
+            Your items are being displayed here
+          </p>
+        </div>
+        <div class="mt-4 flex md:mt-0 md:ml-4">
+          <a
+            [routerLink]="['/app/my-items/add']"
+            type="button"
+            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-radical-red-600 hover:bg-radical-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-radical-red-500"
+          >
+            <i class="pi pi-plus mr-2"></i>
+            Add New Item
+          </a>
+        </div>
+      </div>
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <p-table
+            #dt2
+            [paginator]="true"
+            [rows]="10"
+            [rowsPerPageOptions]="[10, 25, 50]"
+            styleClass="border rounded-sm p-datatable-sm p-datatable-gridlines p-datatable-striped p-datatable-responsive-mode"
+            [autoLayout]="true"
+            [rowHover]="true"
+            [value]="items"
+            [tableStyle]="{ 'min-width': '60rem' }"
+            [globalFilterFields]="['name', 'description', 'status']"
+          >
+            <ng-template pTemplate="emptymessage">
+              <tr class="version_data">
+                <td colspan="6" class="text-center">
+                  <div class="flex justify-center items-center flex-col mt-10">
+                    <i class="pi pi-inbox text-4xl text-gray-400"></i>
+                    <p class="text-gray-400 text-lg mt-4 font-normal">
+                      No items found. Please add a new item.
+                    </p>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="caption">
+              <!-- <div class="flex">
+                <input
+                  pInputText
+                  type="text"
+                  (input)="
+                    dt2?.filterGlobal($any($event.target).value, 'contains')
+                  "
+                  placeholder="Search..."
+                  class="w-64 bg-transparent mx-auto rounded-md border-gray-200 pe-10 shadow-sm sm:text-sm font-normal"
+                />
+              </div> -->
+
+              <div class="relative">
+                <label for="Search" class="sr-only"> Search </label>
+
+                <input
+                  pInputText
+                  type="text"
+                  (input)="
+                    dt2?.filterGlobal($any($event.target).value, 'contains')
+                  "
+                  type="text"
+                  id="Search"
+                  placeholder="Search for..."
+                  class="w-full mb-4 bg-transparent rounded-md border-gray-200 py-2.5 pe-10 shadow-sm sm:text-sm font-normal"
+                />
+
+                <span
+                  class="absolute mb-4 inset-y-0 end-0 grid w-10 place-content-center"
+                >
+                  <button
+                    type="button"
+                    class="text-gray-600 hover:text-gray-700"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="h-4 w-4"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                      />
+                    </svg>
+                  </button>
+                </span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 20%" pSortableColumn="name">
+                  <span class="flex">
+                    Name<p-sortIcon field="name"></p-sortIcon
+                  ></span>
+                </th>
+                <th style="width: 10%">Image</th>
+                <th pSortableColumn="description">
+                  <span class="flex">
+                    Description<p-sortIcon field="description"></p-sortIcon
+                  ></span>
+                </th>
+                <th pSortableColumn="category" style="width: 15%">
+                  <span class="flex">
+                    Category<p-sortIcon field="category"></p-sortIcon
+                  ></span>
+                </th>
+
+                <th pSortableColumn="status" style="width: 11%">
+                  <span class="flex">
+                    Status<p-sortIcon field="status"></p-sortIcon
+                  ></span>
+                </th>
+                <th style="width: 15%">Actions</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td>{{ item.name }}</td>
+                <td>
+                  <img
+                    [src]="hostname + environment.backendPort + '/api/uploads/' + item.image"
+                    [alt]="item.name"
+                    class="rounded-md h-20 w-20 object-contain"
+                  />
+                </td>
+                <td>
+                  {{
+                    item.description.length > 50
+                      ? item.description.substring(0, 50) + "..."
+                      : item.description
+                  }}
+                </td>
+                <td>{{ item.category }}</td>
+                <td>
+                  @if (item.status === "Lost"){
+                  <span
+                    class="whitespace-nowrap rounded-full bg-red-100 px-3 py-1 text-sm text-red-700"
+                  >
+                    <i class="pi pi-search mr-1" style="font-size: 0.8rem"></i>
+
+                    {{ item.status }}
+                  </span>
+                  } @if (item.status === "Found"){
+                  <span
+                    class="whitespace-nowrap rounded-full bg-green-100 px-3 py-1 text-sm text-green-700"
+                  >
+                    <i class="pi pi-check mr-1" style="font-size: 0.8rem"></i>
+                    {{ item.status }}
+                  </span>
+                  } @if (item.status === "Active"){
+                  <span
+                    class="whitespace-nowrap rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-700"
+                  >
+                    <i class="pi pi-circle mr-1" style="font-size: 0.8rem"></i>
+                    {{ item.status }}
+                  </span>
+                  }
+                </td>
+                <td>
+                  <button
+                    (click)="openDetailsPage(item.id)"
+                    pTooltip="View Details"
+                    tooltipPosition="bottom"
+                    class="text-gray-600 hover:text-gray-900"
+                  >
+                    <i class="pi pi-info-circle mr-2"></i>
+                  </button>
+                  <button
+                    (click)="openEditPage(item.id)"
+                    pTooltip="Edit"
+                    tooltipPosition="bottom"
+                    class="ml-2 text-radical-red-600 hover:text-radical-red-900"
+                  >
+                    <i class="pi pi-pen-to-square mr-2"></i>
+                  </button>
+                  <button
+                    (click)="openUpdateStatusModal(item.id, item.status)"
+                    pTooltip="Update item's status"
+                    tooltipPosition="bottom"
+                    class="ml-2 text-radical-red-600 hover:text-radical-red-900"
+                  >
+                    <i class="pi pi-check-circle mr-2"></i>
+                  </button>
+                  <button
+                    (click)="openDeleteDialog(item.id, $event)"
+                    pTooltip="Delete"
+                    tooltipPosition="bottom"
+                    class="ml-2 text-red-600 hover:text-red-900"
+                  >
+                    <i class="pi pi-trash mr-2"></i>
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              <div
+                class="flex align-items-center justify-content-between font-medium"
+              >
+                Total: {{ items ? items.length : 0 }} items.
+              </div>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-confirmDialog header="Confirm" icon="fa fa-trash" width="425" #cd>
+    <p-footer>
+      <!-- <button
+        type="button"
+        pButton
+        icon="fa-close"
+        label="No"
+        (click)="cd.reject()"
+      ></button>
+      <button
+        type="button"
+        pButton
+        icon="fa-check"
+        label="Yes, delete it!"
+        (click)="cd.accept()"
+      ></button> -->
+
+      <button
+        (click)="cd.accept()"
+        class="inline-block rounded border border-red-600 bg-red-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-red-600 focus:outline-none focus:ring active:text-red-500"
+      >
+        <i class="pi pi-trash mr-2"></i>
+        Delete
+      </button>
+
+      <!-- Border -->
+
+      <button
+        (click)="cd.reject()"
+        class="ml-2 inline-block rounded border border-radical-red-600 px-12 py-3 text-sm font-medium text-radical-red-600 focus:outline-none focus:ring"
+      >
+        Cancel
+      </button>
+    </p-footer>
+  </p-confirmDialog>
+
+  <p-dialog
+    header="Change Item's Status"
+    [modal]="true"
+    [(visible)]="isStatusModalVisible"
+    [style]="{ width: '25rem' }"
+  >
+    <span class="p-text-secondary block mb-5">Select the new status</span>
+    <div class="flex justify-center">
+      <form [formGroup]="statusForm">
+        <p-selectButton
+          styleClass="p-button-tabbed"
+          [options]="statusOptions"
+          formControlName="value"
+          optionLabel="label"
+          optionValue="value"
+        />
+      </form>
+    </div>
+    <button
+      type="button"
+      (click)="updateItemStatus()"
+      class="w-full mt-4 inline-block rounded border border-radical-red-600 px-12 py-3 text-sm font-medium text-radical-red-600 focus:outline-none focus:ring"
+    >
+      <i class="pi pi-check mr-2"></i>
+      Update Status
+    </button>
+  </p-dialog>
+</app-main>

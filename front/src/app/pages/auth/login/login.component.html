@@ -1,0 +1,57 @@
+<app-auth-layout>
+  <p class="mt-4 leading-relaxed text-gray-500">
+    Log in to start managing your items and report lost items.
+  </p>
+
+  <form action="#" class="mt-8 grid grid-cols-6 gap-6" [formGroup]="loginForm">
+    <div class="col-span-6">
+      <label for="Email" class="block text-sm font-medium text-gray-700">
+        Email
+      </label>
+
+      <input
+        type="email"
+        id="Email"
+        name="email"
+        formControlName="email"
+        class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+      />
+    </div>
+
+    <div class="col-span-6">
+      <label for="password" class="block text-sm font-medium text-gray-700">
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="Password"
+        name="password"
+        formControlName="password"
+        class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+      />
+    </div>
+
+    <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
+      <button
+        (click)="submitLogin($event)"
+        [disabled]="!loginForm.valid"
+        [class]="!loginForm.valid ? 'cursor-not-allowed ' : ''"
+        class="inline-block shrink-0 rounded-md border border-radical-red-600 bg-radical-red-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-radical-red-600 focus:outline-none focus:ring active:text-radical-red-500"
+      >
+        Login
+      </button>
+
+      <p class="mt-4 text-sm text-gray-500 sm:mt-0">
+        Don't have an account?
+        <a
+          [routerLink]="['/auth/signup']"
+          routerLinkActive="router-link-active"
+          href="#"
+          class="text-gray-700 underline"
+          >Sign up</a
+        >
+      </p>
+    </div>
+  </form>
+</app-auth-layout>

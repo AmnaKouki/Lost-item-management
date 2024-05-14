@@ -1,0 +1,154 @@
+<section class="pt-4">
+  <header class="px-4 lg:px-6 h-14 flex items-center">
+    <a class="flex items-center justify-center" href="#">
+      <img src="assets/logo-color.png" alt="Lost&Found" class="h-8 w-auto" />
+      <span class="sr-only">Lost and Found</span>
+    </a>
+    <nav class="ml-auto flex gap-4 sm:gap-6">
+      <a
+        class="text-sm font-medium hover:underline underline-offset-4"
+        [routerLink]="['/about']"
+      >
+        About Us
+      </a>
+      <a
+        [routerLink]="['/auth/login']"
+        class="text-sm font-medium hover:underline underline-offset-4"
+      >
+        Login
+      </a>
+    </nav>
+  </header>
+
+  <h1
+    class="my-8 text-4xl font-bold tracking-tighter text-center text-radical-red-600"
+  >
+    You have found a lost item 🎉
+  </h1>
+  <main>
+    <div
+      class="grid md:grid-cols-2 gap-6 lg:gap-12 items-start max-w-6xl px-4 mx-auto pb-6"
+    >
+      <div class="grid gap-4 md:gap-10 items-start">
+        <img
+          [src]="
+            hostname + environment.backendPort + '/api/uploads/' + item.image
+          "
+          alt="Product Image"
+          width="600"
+          height="600"
+          class="aspect-square object-cover w-full rounded-lg overflow-hidden border border-gray-200"
+        />
+      </div>
+      <div class="grid gap-4 md:gap-4">
+        <h1 class="font-bold text-3xl lg:text-4xl">{{ item.name }}</h1>
+        <div class="text-sm leading-loose text-gray-500">
+          <p>
+            {{ item.description }}
+          </p>
+        </div>
+        <div class="text-sm leading-loose text-gray-500 flex gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 6h.008v.008H6V6Z"
+            />
+          </svg>
+          {{ item.category }}
+        </div>
+
+        <!-- card -->
+        <div
+          class="rounded-lg border bg-card text-card-foreground shadow-sm w-full"
+          data-v0-t="card"
+        >
+          <div class="space-y-4 p-6">
+            <div class="flex items-center space-x-4">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                class="w-16 h-16 rounded-full"
+                alt="User"
+              />
+              <div class="space-y-1">
+                <h4 class="text-lg font-medium">John Doe</h4>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center space-x-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-5 w-5 text-gray-500 dark:text-gray-400"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  ></path>
+                </svg>
+                <p class="text-gray-500 dark:text-gray-400">
+                  +216 20-123-456
+                </p>
+              </div>
+              <div class="flex items-center space-x-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-5 w-5 text-gray-500 dark:text-gray-400"
+                >
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <p class="text-gray-500 dark:text-gray-400">
+                  john.doe&#64;example.com
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="text-white inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-primary-foreground hover:bg-black/90 h-11 rounded-md px-8"
+        >
+          Request Delivery
+        </button>
+      </div>
+    </div>
+  </main>
+</section>
+
+
+
+<footer class="footer footer-center w-full p-10 bg-transparent text-gray-400">
+  <div class="text-center">
+    <p>
+      Copyright © 2024 -
+      <a class="font-semibold">Lost&Found</a>
+    </p>
+  </div>
+</footer>
